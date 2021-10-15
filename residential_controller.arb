@@ -15,7 +15,7 @@ class Column
     #GOOD
     def createElevators
         elevatorID = 1
-        for i in 1..@amountOfElevators do
+        for i in 1..@amountOfElevators
             elevator = Elevator.new(elevatorID, @amountOfFloors)
             @elevatorList.push(elevator)
             elevatorID += 1
