@@ -1,6 +1,3 @@
-$floorRequestButtonID = 1
-$callButtonID = 1
-
 #Defines a Column
 class Column
     attr_accessor :ID, :status, :amountOfFloors, :amountOfElevators, :elevatorList, :callButtonList
@@ -17,8 +14,8 @@ class Column
     end
     #GOOD
     def createElevators
+        elevatorID = 1
         for i in 1..@amountOfElevators do
-            elevatorID = 1
             elevator = Elevator.new(elevatorID, @amountOfFloors)
             @elevatorList.push(elevator)
             elevatorID += 1
@@ -28,17 +25,18 @@ class Column
 
     def createCallButtons
         buttonFloor = 1
+        callButtonID = 1
         # puts("createCallButton working")
         for i in 1..@amountOfFloors
             if buttonFloor < @amountOfFloors
-                callButton = CallButton.new($callButtonID, buttonFloor, 'up')
+                callButton = CallButton.new(callButtonID, buttonFloor, 'up')
                 @callButtonList.append(callButton)
-                $callButtonID += 1
+                callButtonID += 1
             end
             if buttonFloor > 1
-                callButton = CallButton.new($callButtonID, buttonFloor, 'down')
+                callButton = CallButton.new(callButtonID, buttonFloor, 'down')
                 @callButtonList.append(callButton)
-                $callButtonID -= 1
+                callButtonID -= 1
             end
             buttonFloor +=1
         end
@@ -60,7 +58,7 @@ class Column
 
         bestElevatorInformations = [bestElevator, bestScore, referenceGap]
         for i in 0..@amountOfElevators-1
-            puts i
+            # puts i
             # puts("ElevatorID",@elevatorList[i].ID,"is at floor",@elevatorList[i].currentFloor)
 
             if requestedFloor == @elevatorList[i].currentFloor && @elevatorList[i].status == 'stopped' && requestedDirection == @elevatorList[i].direction
@@ -117,11 +115,12 @@ class Elevator
     #GOOD
     def createFloorRequestButtons
         buttonFloor = 1
+        floorRequestButtonID = 1
         for i in 1..amountOfFloors do
-            floorRequestButton = FloorRequestButton.new($floorRequestButtonID, buttonFloor)
+            floorRequestButton = FloorRequestButton.new(floorRequestButtonID, buttonFloor)
             @floorRequestButtonList.append(floorRequestButton)
             buttonFloor += 1
-            $floorRequestButtonID += 1
+            floorRequestButtonID += 1
             # puts floorRequestButton.ID
         end
     end
@@ -203,12 +202,16 @@ class Door
     end
 end
 
-column1 = Column.new(1, 10, 2)
-column1.elevatorList[0].currentFloor = 9
-column1.elevatorList[1].currentFloor = 2
-puts column1.elevatorList[0].currentFloor
-puts column1.elevatorList[1].currentFloor
-elevator1 = column1.requestElevator(3, 'down')
-puts elevator1.ID
-elevator1.requestFloor(1)
-# r = 0..5
+# column1 = Column.new(1, 10, 2)
+# column1.elevatorList[0].currentFloor = 9
+# column1.elevatorList[1].currentFloor = 8
+# puts column1.elevatorList[0].currentFloor
+# puts column1.elevatorList[1].currentFloor
+# puts column1.elevatorList[0].currentFloor
+# puts column1.elevatorList[1].currentFloor
+# elevator1 = column1.requestElevator(3, 'down')
+# puts elevator1.ID
+# puts elevator1.currentFloor
+# elevator1.requestFloor(1)
+# puts elevator1.currentFloor
+# # r = 0..5
