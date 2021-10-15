@@ -43,7 +43,11 @@ class Column
     end
 
     def requestElevator(floor, direction)
+        sleep(0.5)
+        puts("Requesting an Elevator for the floor ##{floor} to go #{direction}")
         elevator = findElevator(floor, direction)
+        sleep(0.5)
+        puts("The best Elevator for you has the ID ##{elevator.ID}")
         elevator.floorRequestList.append(floor)
         elevator.move
         elevator.operateDoors
@@ -126,6 +130,8 @@ class Elevator
     end
 
     def requestFloor(floor)
+        sleep(0.5)
+        puts("The user requested the floor ##{floor}")
         @floorRequestList.append(floor)
         # puts ("Floor request working")
         move()
@@ -141,12 +147,16 @@ class Elevator
                 @direction = 'up'
                 sortFloorList()
                 while @currentFloor < destination
+                    sleep(0.5)
+                    puts("Elevator's current floor is : #{@currentFloor}")
                     @currentFloor +=1
                 end
             elsif @currentFloor > destination
                 @direction = 'down'
                 sortFloorList()
                 while @currentFloor > destination
+                    sleep(0.5)
+                    puts("Elevator's current floor is : #{@currentFloor}")
                     @currentFloor -=1
                 end
             end
@@ -154,6 +164,8 @@ class Elevator
             @floorRequestList.pop
         end
         @status = 'idle'
+        sleep(0.5)
+        puts("Elevator's arrived at the floor ##{@currentFloor}")
         # puts @currentFloor
     end
     #GOOD
@@ -167,8 +179,13 @@ class Elevator
     #GOOD
     def operateDoors
         @door.status = 'opened'
+        sleep(0.5)
+        puts("Elevator's doors are opening")
         # puts "Waiting 5 seconds"
         @door.status = 'closed'
+        sleep(1.5)
+        puts("Elevator's doors are closing")
+        puts
     end
 end
 
@@ -215,3 +232,141 @@ end
 # elevator1.requestFloor(1)
 # puts elevator1.currentFloor
 # # r = 0..5
+
+# puts("Welcome")
+# puts("Enter your name : " + gets)
+# gets
+# system ("cls")
+
+def makingTheScenario(nbFloors, nbElevators, scenario)
+    if scenario == "1\n"
+        puts
+        puts("Scenario 1")
+        puts
+        puts("This Column has #{nbFloors} floors and #{nbElevators} elevators")
+        column1 = Column.new(1, nbFloors, nbElevators)
+        column1.elevatorList[0].currentFloor = 2
+        column1.elevatorList[0].status = 'idle'
+        column1.elevatorList[1].currentFloor = 6
+        column1.elevatorList[1].status = 'idle'
+
+        puts("Elevator with ID ##{column1.elevatorList[0].ID} is located at the floor ##{column1.elevatorList[0].currentFloor} and is #{column1.elevatorList[0].status}")
+        puts("Elevator with ID ##{column1.elevatorList[1].ID} is located at the floor ##{column1.elevatorList[1].currentFloor} and is #{column1.elevatorList[1].status}")
+        puts
+        puts("Press Enter to continue...")
+        STDIN.getc
+
+        goodElevator = column1.requestElevator(3, 'up')
+        goodElevator.requestFloor(7)
+
+    elsif scenario == "2\n"
+        puts
+        puts("Scenario 2")
+        puts
+        puts("This Column has #{nbFloors} floors and #{nbElevators} elevators")
+        column1 = Column.new(1, nbFloors, nbElevators)
+        column1.elevatorList[0].currentFloor = 10
+        column1.elevatorList[0].status = 'idle'
+        column1.elevatorList[1].currentFloor = 3
+        column1.elevatorList[1].status = 'idle'
+
+        puts("Elevator with ID ##{column1.elevatorList[0].ID} is located at the floor ##{column1.elevatorList[0].currentFloor} and is #{column1.elevatorList[0].status}")
+        puts("Elevator with ID ##{column1.elevatorList[1].ID} is located at the floor ##{column1.elevatorList[1].currentFloor} and is #{column1.elevatorList[1].status}")
+        puts
+        puts("Press Enter to continue...")
+        STDIN.getc
+
+        goodElevator = column1.requestElevator(1, 'up')
+        goodElevator.requestFloor(6)
+
+        puts("Elevator with ID ##{column1.elevatorList[0].ID} is located at the floor ##{column1.elevatorList[0].currentFloor} and is #{column1.elevatorList[0].status}")
+        puts("Elevator with ID ##{column1.elevatorList[1].ID} is located at the floor ##{column1.elevatorList[1].currentFloor} and is #{column1.elevatorList[1].status}")
+        puts
+        puts("Press Enter to continue...")
+        STDIN.getc
+
+        goodElevator = column1.requestElevator(3, 'up')
+        goodElevator.requestFloor(5)
+
+        puts("Elevator with ID ##{column1.elevatorList[0].ID} is located at the floor ##{column1.elevatorList[0].currentFloor} and is #{column1.elevatorList[0].status}")
+        puts("Elevator with ID ##{column1.elevatorList[1].ID} is located at the floor ##{column1.elevatorList[1].currentFloor} and is #{column1.elevatorList[1].status}")
+        puts
+        puts("Press Enter to continue...")
+        STDIN.getc
+
+        goodElevator = column1.requestElevator(9, 'down')
+        goodElevator.requestFloor(2)
+
+    elsif scenario == "3\n"
+        puts
+        puts("Scenario 3")
+        puts
+        puts("This Column has #{nbFloors} floors and #{nbElevators} elevators")
+        column1 = Column.new(1, nbFloors, nbElevators)
+        column1.elevatorList[0].currentFloor = 10
+        column1.elevatorList[0].status = 'idle'
+        column1.elevatorList[1].currentFloor = 3
+        column1.elevatorList[1].status = 'moving'
+        column1.elevatorList[1].direction = 'up'
+        column1.elevatorList[1].floorRequestList.append(6)
+
+        puts("Elevator with ID ##{column1.elevatorList[0].ID} is located at the floor ##{column1.elevatorList[0].currentFloor} and is #{column1.elevatorList[0].status}")
+        puts("Elevator with ID ##{column1.elevatorList[1].ID} is located at the floor ##{column1.elevatorList[1].currentFloor} and is #{column1.elevatorList[1].status}")
+        puts
+        puts("Press Enter to continue...")
+        STDIN.getc
+
+        goodElevator = column1.requestElevator(1, 'up')
+        goodElevator.requestFloor(6)
+
+        puts("Elevator with ID ##{column1.elevatorList[0].ID} is located at the floor ##{column1.elevatorList[0].currentFloor} and is #{column1.elevatorList[0].status}")
+        puts("Elevator with ID ##{column1.elevatorList[1].ID} is located at the floor ##{column1.elevatorList[1].currentFloor} and is #{column1.elevatorList[1].status}")
+        puts
+        puts("Press Enter to continue...")
+        STDIN.getc
+
+        goodElevator = column1.requestElevator(3, 'up')
+        goodElevator.requestFloor(5)
+
+    elsif scenario == "0"
+    end
+    
+end
+
+puts("Welcome") 
+userInputIsRight = false
+while userInputIsRight == false
+    puts("Enter which type of scenario you would like below, a predefined scenario {1} or a customized scenario {2}")
+    userNumberInput = gets
+    if userNumberInput == "1\n"
+        userPickedChoice = false
+        while userPickedChoice == false
+            puts("Enter your selected scenario below, {1}, {2} or {3}")
+            userScenarioChoice = gets
+            if userScenarioChoice == "1\n" || userScenarioChoice == "2\n" || userScenarioChoice == "3\n"
+                makingTheScenario(10, 2, userScenarioChoice)
+                userPickedChoice = true
+            else
+                system ("cls")
+                puts("Welcome") 
+                puts("Enter which type of scenario you would like below, a predefined scenario {1} or a customized scenario {2}")
+            end
+        end
+        userInputIsRight = true
+    elsif userNumberInput == "2\n"
+        makingTheScenario(10, 2, "0")
+        userInputIsRight = true
+    else
+        system ("cls")
+        userInputIsRight = false
+    end
+end
+sleep(1.5)
+puts("Thank you come again")
+
+# hello = "yes"
+# puts("Thank you come again #{hello}")
+
+# puts("are you here?")
+# char = STDIN.getc
+# puts(char)
