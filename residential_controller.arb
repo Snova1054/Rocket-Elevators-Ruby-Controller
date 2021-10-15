@@ -36,7 +36,7 @@ class Column
             if buttonFloor > 1
                 callButton = CallButton.new(callButtonID, buttonFloor, 'down')
                 @callButtonList.append(callButton)
-                callButtonID -= 1
+                callButtonID += 1
             end
             buttonFloor +=1
         end
@@ -120,7 +120,7 @@ class Elevator
     def createFloorRequestButtons
         buttonFloor = 1
         floorRequestButtonID = 1
-        for i in 1..amountOfFloors do
+        for i in 1..amountOfFloors
             floorRequestButton = FloorRequestButton.new(floorRequestButtonID, buttonFloor)
             @floorRequestButtonList.append(floorRequestButton)
             buttonFloor += 1
