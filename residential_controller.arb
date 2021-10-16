@@ -307,7 +307,7 @@ end
 puts("Welcome") 
 userInputIsRight = false
 while userInputIsRight == false
-    puts("Enter which type of scenario you would like below, a predefined scenario {1} or a customized scenario {2}")
+    puts("Enter which type of scenario you would like below, a predefined scenario {1} or exit this program?")
     userNumberInput = gets
     if userNumberInput == "1\n"
         userPickedChoice = false
