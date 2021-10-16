@@ -12,21 +12,19 @@ class Column
         createElevators()
         createCallButtons()
     end
-    #GOOD
+
     def createElevators
         elevatorID = 1
         for i in 1..@amountOfElevators
             elevator = Elevator.new(elevatorID, @amountOfFloors)
             @elevatorList.push(elevator)
             elevatorID += 1
-            # puts("Elevators creation #", i)
         end
     end
 
     def createCallButtons
         buttonFloor = 1
         callButtonID = 1
-        # puts("createCallButton working")
         for i in 1..@amountOfFloors
             if buttonFloor < @amountOfFloors
                 callButton = CallButton.new(callButtonID, buttonFloor, 'up')
@@ -51,10 +49,9 @@ class Column
         elevator.floorRequestList.append(floor)
         elevator.move
         elevator.operateDoors
-        # puts("Elevator #", elevator.ID)
         return elevator
     end
-    #GOOD
+
     def findElevator(requestedFloor, requestedDirection)
         bestElevator = @elevatorList[0]
         bestScore = 5
@@ -62,8 +59,6 @@ class Column
 
         bestElevatorInformations = [bestElevator, bestScore, referenceGap]
         for i in 0..@amountOfElevators-1
-            # puts i
-            # puts("ElevatorID",@elevatorList[i].ID,"is at floor",@elevatorList[i].currentFloor)
 
             if requestedFloor == @elevatorList[i].currentFloor && @elevatorList[i].status == 'stopped' && requestedDirection == @elevatorList[i].direction
                 bestElevatorInformations = checkIfElevatorIsBetter(1, @elevatorList[i], bestScore, referenceGap, bestElevator, requestedFloor)
@@ -83,7 +78,6 @@ class Column
         return bestElevatorInformations[0]
     end
 
-    #GOOD
     def checkIfElevatorIsBetter(scoreToCheck, newElevator, bestScore, referenceGap, bestElevator, floor)
         if scoreToCheck < bestScore
             bestScore = scoreToCheck
@@ -116,7 +110,7 @@ class Elevator
 
         createFloorRequestButtons()
     end
-    #GOOD
+
     def createFloorRequestButtons
         buttonFloor = 1
         floorRequestButtonID = 1
@@ -125,7 +119,6 @@ class Elevator
             @floorRequestButtonList.append(floorRequestButton)
             buttonFloor += 1
             floorRequestButtonID += 1
-            # puts floorRequestButton.ID
         end
     end
 
@@ -133,13 +126,11 @@ class Elevator
         sleep(0.5)
         puts("The user requested the floor ##{floor}")
         @floorRequestList.append(floor)
-        # puts ("Floor request working")
         move()
         operateDoors()
     end
-    #GOOD
+
     def move
-        # puts ("inside MOVE LETS GO")
         while @floorRequestList.empty?() == false
             destination = @floorRequestList[0]
             @status = 'moving'
@@ -166,9 +157,8 @@ class Elevator
         @status = 'idle'
         sleep(0.5)
         puts("Elevator's arrived at the floor ##{@currentFloor}")
-        # puts @currentFloor
     end
-    #GOOD
+
     def sortFloorList
         if @direction == 'up'
             @floorRequestList = @floorRequestList.sort()
@@ -176,12 +166,12 @@ class Elevator
             @floorRequestList = @floorRequestList.sort().reverse
         end
     end
-    #GOOD
+
     def operateDoors
         @door.status = 'opened'
         sleep(0.5)
         puts("Elevator's doors are opening")
-        # puts "Waiting 5 seconds"
+        #"Waiting 5 seconds"
         @door.status = 'closed'
         sleep(1.5)
         puts("Elevator's doors are closing")
@@ -219,24 +209,7 @@ class Door
     end
 end
 
-# column1 = Column.new(1, 10, 2)
-# column1.elevatorList[0].currentFloor = 9
-# column1.elevatorList[1].currentFloor = 8
-# puts column1.elevatorList[0].currentFloor
-# puts column1.elevatorList[1].currentFloor
-# puts column1.elevatorList[0].currentFloor
-# puts column1.elevatorList[1].currentFloor
-# elevator1 = column1.requestElevator(3, 'down')
-# puts elevator1.ID
-# puts elevator1.currentFloor
-# elevator1.requestFloor(1)
-# puts elevator1.currentFloor
-# # r = 0..5
 
-# puts("Welcome")
-# puts("Enter your name : " + gets)
-# gets
-# system ("cls")
 
 def makingTheScenario(nbFloors, nbElevators, scenario)
     if scenario == "1\n"
@@ -327,8 +300,6 @@ def makingTheScenario(nbFloors, nbElevators, scenario)
 
         goodElevator = column1.requestElevator(3, 'up')
         goodElevator.requestFloor(5)
-
-    elsif scenario == "0"
     end
     
 end
@@ -353,9 +324,6 @@ while userInputIsRight == false
             end
         end
         userInputIsRight = true
-    elsif userNumberInput == "2\n"
-        makingTheScenario(10, 2, "0")
-        userInputIsRight = true
     else
         system ("cls")
         userInputIsRight = false
@@ -363,10 +331,3 @@ while userInputIsRight == false
 end
 sleep(1.5)
 puts("Thank you come again")
-
-# hello = "yes"
-# puts("Thank you come again #{hello}")
-
-# puts("are you here?")
-# char = STDIN.getc
-# puts(char)
